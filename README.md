@@ -18,12 +18,28 @@ Creates a new transaction.
 
 **Request Example**
 ```json
-{ "product_id": 1, "quantity": 5, "transaction_type": "out" }
+{ 
+  "product_id": 1, 
+  "quantity": 5, 
+  "transaction_type": "out" 
+}
 ```
 
 **Success Response**
 ```json
-{ "message": "Transaction created successfully", "product": { "id": 1, "name": "Apple", "stock": 15 } }
+{ 
+  "message": "Transaction created successfully", 
+  "product":  { 
+                "id": 1, 
+                "name": "Apple", 
+                "stock": 15 
+              }
+}
+```
+
+**Error Response**
+```json
+{ "error": "Insufficient stock for product Apple" }
 ```
 
 
