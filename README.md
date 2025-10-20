@@ -48,7 +48,28 @@ Returns list of transactions (with optional pagination).
 
 **Success Response**
 ```json
-[{"id":1,"quantity":5,"transaction_type":"out","created_at":"2025-10-20T05:09:43.058Z","product":{"id":1,"name":"Apple"}}]
+[
+  {
+    "id":2,
+    "quantity":5,
+    "transaction_type":"out",
+    "created_at":"2025-10-20T05:33:46.034Z",
+    "product":{
+        "id":1,
+        "name":"Apple"
+        }
+  },
+  {
+    "id":1,
+    "quantity":5,
+    "transaction_type":"out",
+    "created_at":"2025-10-20T05:09:43.058Z",
+    "product":{
+          "id":1,
+          "name":"Apple"
+          }
+  }
+]
 ```
 
 ## AI Assistance

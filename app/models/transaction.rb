@@ -3,21 +3,24 @@ class Transaction < ApplicationRecord
 
   validates :quantity, numericality: { greater_than: 0 }
   validates :transaction_type, inclusion: { in: %w[in out] }
+  validate :sufficient_stock, if: -> { transaction_type == 'out' }
 
-  # Use a callback to handle stock update automatically
-  after_create :update_product_stock
+  after_create :apply_stock_change
 
   private
 
-  def update_product_stock
-    if transaction_type == 'in'
+  def sufficient_stock
+    if product.stock < quantity
+      errors.add(:base, "Insufficient stock for product #{product.name}")
+    end
+  end
+
+  def apply_stock_change
+    case transaction_type
+    when 'in'
       product.increment!(:stock, quantity)
-    elsif transaction_type == 'out'
-      if product.stock >= quantity
-        product.decrement!(:stock, quantity)
-      else
-        raise ActiveRecord::Rollback, "Insufficient stock for product #{product.name}"
-      end
+    when 'out'
+      product.decrement!(:stock, quantity)
     end
   end
 end
